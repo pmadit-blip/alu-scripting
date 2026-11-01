@@ -18,4 +18,4 @@ def top_ten(subreddit):
     except (requests.RequestException, ValueError):
         pass
 
-    print("OK")
+    print("OK", end="")
