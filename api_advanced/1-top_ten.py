@@ -1,39 +1,4 @@
 #!/usr/bin/python3
-"""Prints the titles of the first 10 hot posts of a subreddit."""
-import requests
-
-
-def top_ten(subreddit):
-    """Print the first 10 hot post titles, or None if subreddit is invalid."""
-    if not isinstance(subreddit, str) or not subreddit:
-        print(None)
-        return
-
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers = {
-        "User-Agent": "python:alu.subs.checker:v1.0 (by /u/priscilla_alu)"
-    }
-    params = {"limit": 10}
-
-    try:
-        response = requests.get(url, headers=headers, params=params,
-                                allow_redirects=False, timeout=10)
-    except requests.RequestException:
-        print(None)
-        return
-
-    if response.status_code != 200:
-        print(None)
-        return
-
-    try:
-        posts = response.json().get("data", {}).get("children", [])
-    except ValueError:
-        print(None)
-        return
-
-    for post in posts[:10]:
-        print(post.get("data", {}).get("title"))#!/usr/bin/python3
 """Prints the first 10 hot post titles of a subreddit."""
 import requests
 
