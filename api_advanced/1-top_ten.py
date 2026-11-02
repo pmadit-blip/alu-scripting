@@ -6,9 +6,7 @@ import requests
 def top_ten(subreddit):
     """Print the first 10 hot post titles, or None if subreddit is invalid."""
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers = {
-        "User-Agent": "python:alu.subs.checker:v1.0 (by /u/priscilla_alu)"
-    }
+    headers = {"User-Agent": "MyBot/1.0 by pmadit-blip"}
     params = {"limit": 10}
 
     try:
