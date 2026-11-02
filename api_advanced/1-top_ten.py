@@ -4,19 +4,23 @@ import requests
 
 
 def top_ten(subreddit):
-    """Query the Reddit API and print the first 10 hot post titles."""
+    """Print the first 10 hot post titles, or None if subreddit is invalid."""
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers = {"User-Agent": "linux:alu-scripting:v1.0 (by /u/your_username)"}
+    headers = {
+        "User-Agent": "python:alu.subs.checker:v1.0 (by /u/priscilla_alu)"
+    }
     params = {"limit": 10}
 
     try:
         response = requests.get(url, headers=headers, params=params,
                                 allow_redirects=False, timeout=10)
         if response.status_code != 200:
-            print("OK")
+            print(None)
             return
         posts = response.json().get("data", {}).get("children", [])
-        for post in posts:
-            print(post.get("data", {}).get("title"))
-    except Exception:
-        print("OK")
+    except (requests.RequestException, ValueError):
+        print(None)
+        return
+
+    for post in posts[:10]:
+        print(post.get("data", {}).get("title"))
